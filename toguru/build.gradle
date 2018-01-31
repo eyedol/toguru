@@ -1,0 +1,35 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: "org.jlleitschuh.gradle.ktlint"
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.getkeepsafe.dexcount'
+
+android {
+  compileSdkVersion versions.compileSdkVersion
+  defaultConfig {
+    minSdkVersion versions.minSdkVersion
+  }
+  lintOptions {
+    disable 'GradleCompatible'
+  }
+  compileOptions {
+    sourceCompatibility versions.sourceCompatibilityVersion
+    targetCompatibility versions.targetCompatibilityVersion
+  }
+  kapt {
+    useBuildCache = true
+  }
+  ktlint {
+    version = versions.ktlint
+    android = true
+    reporter = "checkstyle"
+    ignoreFailures = false
+  }
+}
+
+dependencies {
+  api deps.kotlin.stdLib.jre
+  api deps.timber
+
+  testImplementation deps.junit
+}

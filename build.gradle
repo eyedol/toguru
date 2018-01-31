@@ -1,0 +1,62 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+  ext.application = [id: 'com.addhen.toguru']
+  ext.versions = [kotlin                    : '1.2.21',
+                  gradlePlugin              : '3.1.0-alpha09',
+                  minSdkVersion             : 23,
+                  targetSdkVersion          : 27,
+                  compileSdkVersion         : 27,
+                  sourceCompatibilityVersion: JavaVersion.VERSION_1_8,
+                  targetCompatibilityVersion: JavaVersion.VERSION_1_8,
+                  timber                    : '4.6.0',
+                  junit                     : '4.12',
+                  ktlint                    : '0.14.0',
+                  ktlintGradle              : '3.0.0',]
+  ext.deps = [
+      kotlin     : [
+          stdLib: [
+              jre: "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+          ],
+      ],
+      'timber'   : "com.jakewharton.timber:timber:$versions.timber",
+      'junit'    : "junit:junit:$versions.junit"
+  ]
+  repositories {
+    google()
+    jcenter()
+    maven { url "https://plugins.gradle.org/m2/" }
+  }
+  dependencies {
+    classpath "com.android.tools.build:gradle:$versions.gradlePlugin"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+    classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.2'
+    classpath 'com.google.gms:google-services:3.1.1'
+    classpath "gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:$versions.ktlintGradle"
+    // NOTE: Do not place your application dependencies here; they belong
+    // in the individual module build.gradle files
+  }
+}
+
+allprojects {
+  repositories {
+    google()
+    jcenter()
+    maven { url "https://jitpack.io" }
+  }
+
+  tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+      jvmTarget = "1.8"
+    }
+  }
+}
+
+task clean(type: Delete) {
+  delete rootProject.buildDir
+}
+
+task upgradeWrapper(type: Wrapper) {
+  description 'Creates the gradle wrapper.'
+  gradleVersion '4.5'
+}
