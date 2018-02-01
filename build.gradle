@@ -12,24 +12,32 @@ buildscript {
                   timber                    : '4.6.0',
                   junit                     : '4.12',
                   ktlint                    : '0.14.0',
-                  ktlintGradle              : '3.0.0',]
+                  ktlintGradle              : '3.0.0',
+                  kotlinxSerialization      : '0.4']
   ext.deps = [
-      kotlin     : [
+      kotlin  : [
           stdLib: [
               jre: "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
-          ],
+          ]
       ],
-      'timber'   : "com.jakewharton.timber:timber:$versions.timber",
-      'junit'    : "junit:junit:$versions.junit"
+      kotlinx : [
+          serialization: [
+              runtime: "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$versions.kotlinxSerialization",
+          ]
+      ],
+      'timber': "com.jakewharton.timber:timber:$versions.timber",
+      'junit' : "junit:junit:$versions.junit"
   ]
   repositories {
     google()
     jcenter()
     maven { url "https://plugins.gradle.org/m2/" }
+    maven { url "https://kotlin.bintray.com/kotlinx" }
   }
   dependencies {
     classpath "com.android.tools.build:gradle:$versions.gradlePlugin"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+    classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:$versions.kotlinxSerialization"
     classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.2'
     classpath 'com.google.gms:google-services:3.1.1'
     classpath "gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:$versions.ktlintGradle"
@@ -43,6 +51,7 @@ allprojects {
     google()
     jcenter()
     maven { url "https://jitpack.io" }
+    maven { url "https://kotlin.bintray.com/kotlinx" }
   }
 
   tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
