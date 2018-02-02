@@ -2,9 +2,9 @@ package com.addhen.toguru
 
 interface Store {
 
-  fun add(vararg feature: Feature)
+  fun add(vararg features: Feature)
 
-  fun delete(vararg feature: Feature)
+  fun delete(vararg features: Feature)
 
   fun delete(featureName: String)
 

@@ -1,32 +1,24 @@
 package com.addhen.toguru
 
-class ToguruStore : Store {
+class ToguruStore(private val sharedPreferencesStore: SharedPreferencesStore) : Store {
 
-  override fun add(vararg feature: Feature) {
-    TODO("not implemented")
+  override fun add(vararg features: Feature) {
+    sharedPreferencesStore.add(*features)
   }
 
-  override fun delete(vararg feature: Feature) {
-    TODO("not implemented")
+  override fun delete(vararg features: Feature) {
+    sharedPreferencesStore.delete(*features)
   }
 
   override fun delete(featureName: String) {
-    TODO("not implemented")
+    sharedPreferencesStore.delete(featureName)
   }
 
-  override fun features(): Set<Feature> {
-    TODO("not implemented")
-  }
+  override fun features() = sharedPreferencesStore.features()
 
-  override fun feature(featureName: String): Feature {
-    TODO("not implemented")
-  }
+  override fun feature(featureName: String) = sharedPreferencesStore.feature(featureName)
 
-  override fun update(feature: Feature) {
-    TODO("not implemented")
-  }
+  override fun update(feature: Feature) = sharedPreferencesStore.update(feature)
 
-  override fun update(featureName: String, enable: Boolean) {
-    TODO("not implemented")
-  }
+  override fun update(featureName: String, enable: Boolean) = sharedPreferencesStore.update(featureName, enable)
 }
