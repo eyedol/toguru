@@ -27,12 +27,19 @@ class SharedPreferencesStore(private val sharedPreferences: SharedPreferences) {
   }
 
   fun features(): Set<Feature> {
-    val features = emptySet<Feature>()
+    val features = mutableSetOf<Feature>()
     sharedPreferences.all.forEach {
       val feature = feature(it.value.toString())
-      features.plusElement(feature)
+      features.add(feature)
     }
     return features
+  }
+
+  fun clear() {
+    sharedPreferences
+        .edit()
+        .clear()
+        .apply()
   }
 
   fun feature(featureName: String) = deserialize(featureName)

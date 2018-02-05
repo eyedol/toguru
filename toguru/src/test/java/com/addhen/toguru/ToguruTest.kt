@@ -1,5 +1,6 @@
 package com.addhen.toguru
 
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -8,19 +9,23 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class ToguruTest {
 
-  private lateinit var store: Store
-
   private lateinit var toguru: Toguru
 
   @Before
   fun setUp() {
+    val store = ToguruStore(SharedPreferencesStore(MockSharedPreferences()))
     toguru = Toguru(store)
+  }
+
+  @Before
+  fun tearDown() {
+    toguru.deleteAll()
   }
 
   @Test
   fun `should add features`() {
-    toguru.addFeatures(Feature("featureOne"))
-    // TODO Make necessary assertions
+    toguru.addFeatures(Feature("featureOne", "featureDescription"))
+    assertEquals(1, toguru.features().size)
   }
 
   @Test
@@ -67,7 +72,9 @@ class ToguruTest {
 
   @Test
   fun `should set a new store instance`() {
-    toguru.store = store
+    toguru.apply {
+      store = ToguruStore(SharedPreferencesStore(MockSharedPreferences()))
+    }
     // TODO Make necessary assertions
   }
 }

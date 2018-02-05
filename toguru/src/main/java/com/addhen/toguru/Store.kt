@@ -8,6 +8,8 @@ interface Store {
 
   fun delete(featureName: String)
 
+  fun deleteAll()
+
   fun features(): Set<Feature>
 
   fun feature(featureName: String): Feature

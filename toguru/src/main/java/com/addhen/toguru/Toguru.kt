@@ -22,9 +22,9 @@ class Toguru(var store: Store, vararg features: Feature = emptyArray()) {
     store.delete(featureName)
   }
 
-  fun update(feature: Feature) {
-    store.update(feature)
-  }
+  fun deleteAll() = store.deleteAll()
+
+  fun update(feature: Feature) = store.update(feature)
 
   fun delete(vararg features: Feature) {
     store.delete(*features)
