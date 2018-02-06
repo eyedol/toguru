@@ -8,7 +8,7 @@ Contributing
 ============
 
 This is still a WIP. Contributions would highly be appreciated.
-Feel free to open a pull request or an issue.
+Feel free to open a pull request or an [issue](https://github.com/eyedol/toguru/issues/new).
 
 License
 =======
