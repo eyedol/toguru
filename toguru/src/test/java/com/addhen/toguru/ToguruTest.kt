@@ -1,7 +1,6 @@
 package com.addhen.toguru
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -34,53 +33,70 @@ class ToguruTest {
   }
 
   @Test
-  fun `should delete a feature`() {
+  fun `should delete a feature by its name`() {
+    seed()
     toguru.delete("featureOne")
-    // TODO Make necessary assertions
+    assertEquals(0, toguru.features().size)
   }
 
   @Test
   fun `should disable a feature`() {
+    seed()
     toguru.disable("featureOne")
-    // TODO Make necessary assertions
+    assertFalse(toguru.isEnabled("featureOne"))
   }
 
   @Test
   fun `should enable a feature`() {
+    seed()
     toguru.enable("featureOne")
-    // TODO Make necessary assertions
+    val isEnabled = toguru.isEnabled("featureOne")
+    assertTrue(isEnabled)
   }
 
   @Test
   fun `should get all features`() {
-    val features = toguru.features()
-    // TODO Make necessary assertions
+    seed()
+    toguru.addFeatures(Feature("featureTwo", "descriptionTwo"))
+    assertEquals(2, toguru.features().size)
   }
 
   @Test
-  fun `should update a feature`() {
-    toguru.update(Feature("featureOne", "description"))
-    // TODO Make necessary assertions
+  fun `should update a feature description`() {
+    val feature = Feature("featureOne", "description")
+    toguru.addFeatures(feature)
+    toguru.update(feature.copy(description = "new description"))
+    val updatedFeature = toguru.features().elementAt(0)
+    assertEquals("featureOne", updatedFeature.name)
+    assertEquals("new description", updatedFeature.description)
+    assertTrue(updatedFeature.isEnabled)
   }
 
   @Test
   fun `should delete features`() {
-    toguru.delete(Feature("featureOne"), Feature("featureTwo"))
-    // TODO Make necessary assertions
+    val feature = Feature("featureOne", "description")
+    toguru.addFeatures(feature)
+    toguru.delete(feature)
+    assertEquals(0, toguru.features().size)
   }
 
   @Test
   fun `should check feature is enabled`() {
-    toguru.addFeatures(Feature("featureOne", "description"))
+    seed()
     val isEnabled = toguru.isEnabled("featureOne")
     assertTrue(isEnabled)
   }
 
   @Test
   fun `should set a new store instance`() {
+    val localStore = ToguruStore(SharedPreferencesStore(MockSharedPreferences()))
     toguru.apply {
-      store = ToguruStore(SharedPreferencesStore(MockSharedPreferences()))
+      store = localStore
     }
-    // TODO Make necessary assertions
+    assertSame(localStore, toguru.store)
+  }
+
+  private fun seed() {
+    toguru.addFeatures(Feature("featureOne", "description"))
   }
 }

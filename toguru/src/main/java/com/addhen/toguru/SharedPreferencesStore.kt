@@ -30,7 +30,7 @@ class SharedPreferencesStore(private val sharedPreferences: SharedPreferences) {
   fun features(): Set<Feature> {
     val features = mutableSetOf<Feature>()
     sharedPreferences.all.forEach {
-      val feature = feature(it.value.toString())
+      val feature = deserialize(it.value.toString())
       features.add(feature)
     }
     return features
@@ -43,15 +43,17 @@ class SharedPreferencesStore(private val sharedPreferences: SharedPreferences) {
         }
   }
 
-  fun feature(featureName: String) = deserialize(featureName)
+  fun feature(featureName: String): Feature {
+    val json = sharedPreferences.getString(featureName, "")
+    return deserialize(json)
+  }
 
   fun update(feature: Feature) {
     add(feature)
   }
 
   fun update(featureName: String, enable: Boolean) {
-    val json = sharedPreferences.getString(featureName, "")
-    val feature = deserialize(json)
+    val feature = feature(featureName)
     add(feature.copy(isEnabled = enable))
   }
 
