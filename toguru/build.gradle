@@ -31,7 +31,6 @@ android {
 dependencies {
   api deps.kotlin.stdLib.jre
   api deps.kotlinx.serialization.runtime
-  api deps.timber
 
   testImplementation deps.junit
 }

@@ -9,24 +9,22 @@ buildscript {
                   compileSdkVersion         : 27,
                   sourceCompatibilityVersion: JavaVersion.VERSION_1_8,
                   targetCompatibilityVersion: JavaVersion.VERSION_1_8,
-                  timber                    : '4.6.0',
                   junit                     : '4.12',
                   ktlint                    : '0.14.0',
                   ktlintGradle              : '3.0.0',
                   kotlinxSerialization      : '0.4']
   ext.deps = [
-      kotlin  : [
+      kotlin : [
           stdLib: [
               jre: "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
           ]
       ],
-      kotlinx : [
+      kotlinx: [
           serialization: [
               runtime: "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$versions.kotlinxSerialization",
           ]
       ],
-      'timber': "com.jakewharton.timber:timber:$versions.timber",
-      'junit' : "junit:junit:$versions.junit"
+      'junit': "junit:junit:$versions.junit"
   ]
   repositories {
     google()
@@ -50,7 +48,6 @@ allprojects {
   repositories {
     google()
     jcenter()
-    maven { url "https://jitpack.io" }
     maven { url "https://kotlin.bintray.com/kotlinx" }
   }
 
