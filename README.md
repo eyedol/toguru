@@ -7,8 +7,8 @@ described in this [article](https://martinfowler.com/articles/feature-toggles.ht
 Contributing
 ============
 
-This is still a WIP. Contributions are highly welcomed.
-Feel free to open a pull request.
+This is still a WIP. Contributions would highly be appreciated.
+Feel free to open a pull request or an issue.
 
 License
 =======
