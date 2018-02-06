@@ -10,7 +10,7 @@ buildscript {
                   sourceCompatibilityVersion: JavaVersion.VERSION_1_8,
                   targetCompatibilityVersion: JavaVersion.VERSION_1_8,
                   junit                     : '4.12',
-                  ktlint                    : '0.14.0',
+                  ktlint                    : '0.15.0',
                   ktlintGradle              : '3.0.0',
                   kotlinxSerialization      : '0.4']
   ext.deps = [
