@@ -8,9 +8,9 @@ class SharedPreferencesStore(private val sharedPreferences: SharedPreferences) {
   fun add(vararg features: Feature) {
     features.forEach {
       sharedPreferences
-          .edit()
-          .putString(it.name, serialize(it))
-          .apply()
+          .edit {
+            putString(it.name, serialize(it))
+          }
     }
   }
 
@@ -22,8 +22,9 @@ class SharedPreferencesStore(private val sharedPreferences: SharedPreferences) {
 
   fun delete(featureName: String) {
     sharedPreferences
-        .edit()
-        .remove(featureName).apply()
+        .edit {
+          remove(featureName).apply()
+        }
   }
 
   fun features(): Set<Feature> {
@@ -37,9 +38,9 @@ class SharedPreferencesStore(private val sharedPreferences: SharedPreferences) {
 
   fun clear() {
     sharedPreferences
-        .edit()
-        .clear()
-        .apply()
+        .edit {
+          clear()
+        }
   }
 
   fun feature(featureName: String) = deserialize(featureName)

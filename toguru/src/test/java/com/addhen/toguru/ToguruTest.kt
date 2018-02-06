@@ -1,6 +1,7 @@
 package com.addhen.toguru
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,6 +27,10 @@ class ToguruTest {
   fun `should add features`() {
     toguru.addFeatures(Feature("featureOne", "featureDescription"))
     assertEquals(1, toguru.features().size)
+    val feature = toguru.features().elementAt(0)
+    assertEquals("featureOne", feature.name)
+    assertEquals("featureDescription", feature.description)
+    assertTrue(feature.isEnabled)
   }
 
   @Test
@@ -66,8 +71,9 @@ class ToguruTest {
 
   @Test
   fun `should check feature is enabled`() {
-    toguru.isEnabled("featureOne")
-    // TODO Make necessary assertions
+    toguru.addFeatures(Feature("featureOne", "description"))
+    val isEnabled = toguru.isEnabled("featureOne")
+    assertTrue(isEnabled)
   }
 
   @Test
